@@ -1,19 +1,19 @@
-::note @SETLOCAL��@ENDLOCAL�ň͂ނƁA���̒��Őݒ肵�����ϐ��͂��͈͓̔��ł����L��
+::note @SETLOCALと@ENDLOCALで囲むと、その中で設定した環境変数はその範囲内でだけ有効
 @SETLOCAL
 
 ::<Settings>------------------------
 @SET PATH="C:\cygwin64\bin"
-@set SH_PATH_WIN="%~dp0%expand-clip.sh"
+@set SH_PATH_WIN="%~dp0%cygexpand-clip.sh"
 
-::Bash�V�F���N�����̃J�����g�f�B���N�g�����R�}���h�v�����v�g�̃J�����g�f�B���N�g���ɂ���
+::Bashシェル起動時のカレントディレクトリをコマンドプロンプトのカレントディレクトリにする
 @SET CHERE_INVOKING=yes
 @SET LANG=ja_JP.SJIS
 ::-----------------------</Settings>
 
-:: Windows �X�^�C���p�X������ -> UNIX �X�^�C���p�X������ϊ�
+:: Windows スタイルパス文字列 -> UNIX スタイルパス文字列変換
 @for /f %%f in ('cygpath.exe -u %SH_PATH_WIN%') do @set SH_PATH_UNI=%%f
 
-:: Shell Script ���s
+:: Shell Script 実行
 @bash.exe --login -i -c "%SH_PATH_UNI%"
 
 @ENDLOCAL
